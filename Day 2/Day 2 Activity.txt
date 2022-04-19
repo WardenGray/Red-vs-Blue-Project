@@ -1,6 +1,5 @@
 Identify the offensive traffic.
 
-
 Identify the traffic between your machine and the web machine:
 When did the interaction occur?
 	March 26 starting around 17:30.
@@ -10,7 +9,6 @@ What data is concerning from the Blue Team perspective?
 	There is an incredibly large amount of hits (nearly 170,000) coming from the same ip in a short amount of time.
 
 Find the request for the hidden directory.
-
 
 In your attack, you found a secret folder. Let's look at that interaction between these two machines.
 How many requests were made to this directory? At what time and from which IP address(es)?
