@@ -103,9 +103,7 @@ Day 2:
 
 ---
 
-### Looking Forward 
-
-In the next week, we will cover the specialized field of digital forensics. We will cover a new set of skills and tools that allow us to analyze evidence on digital technology after an security incident or crime occurs.  
+[Presentation](https://docs.google.com/presentation/d/1Xn1F3W38F7fdJdjvwhJ5RVJGI9ns6ENSV_39nxkFVWw/edit#slide=id.g8798eb4c44_0_0)
 
 ---
 
