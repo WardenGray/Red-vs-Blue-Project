@@ -1,0 +1,59 @@
+Identify the offensive traffic.
+
+
+Identify the traffic between your machine and the web machine:
+When did the interaction occur?
+	March 26 starting around 17:30.
+What responses did the victim send back?
+	Mostly HTTP 401. Also some 200, 204 and 303 codes.
+What data is concerning from the Blue Team perspective?
+	There is an incredibly large amount of hits (nearly 170,000) coming from the same ip in a short amount of time.
+
+Find the request for the hidden directory.
+
+
+In your attack, you found a secret folder. Let's look at that interaction between these two machines.
+How many requests were made to this directory? At what time and from which IP address(es)?
+	15,934 requests were made to secret_folder. The attack started around 17:30 on March 26 from the ip 192.168.1.90.
+Which files were requested? What information did they contain?
+	The secret folder contained a file with a hashed password for the user ryan. 
+What kind of alarm would you set to detect this behavior in the future?
+	An alert should trigger if hidden directories are accessed from outside the company’s internal network. 
+Identify at least one way to harden the vulnerable machine that would mitigate this attack.
+	Stronger password requirements. Consider encrypting hidden directories. 
+
+Identify the brute force attack.
+
+After identifying the hidden directory, you used Hydra to brute-force the target server. Answer the following questions:
+Can you identify packets specifically from Hydra?
+	The user agent for all the 401 response codes is “Mozilla/4.0 (Hydra)” There were 10,141 hits when searching for this user agent.
+How many requests were made in the brute-force attack?
+	There were 15,929 HTTP 401 requests, however it looks like only 10,141 were from the brute force attack specifically. There were also 3 HTTP 301 requests, which indicates the attacker got in and was redirected to another webpage.
+How many requests had the attacker made before discovering the correct password in this one?
+	See above.
+What kind of alarm would you set to detect this behavior in the future and at what threshold(s)?
+	We should set an alarm by determining the baseline amount of 401 requests per hour and set an alarm if it is higher than the baseline. An alert should also be created if one single ip address has more than x amount (say, 50) of 401 requests in an hour.
+Identify at least one way to harden the vulnerable machine that would mitigate this attack.
+	If a single ip has more than 15 HTTP 401 requests in an hour that ip should be blocked. 
+
+Find the WebDav connection.
+
+Use your dashboard to answer the following questions:
+How many requests were made to this directory?
+	Over the last 7 days 355 requests were made to WebDav
+Which file(s) were requested?
+	The file shell.php was requested
+What kind of alarm would you set to detect such access in the future?
+	An alert should trigger if WebDav is accessed from outside the company’s internal network. 
+Identify at least one way to harden the vulnerable machine that would mitigate this attack.
+	The host should deny WebDav uploads by default and only allow uploads from certain ip addresses. Furthermore instructions for accessing WebDav should not be accessible from a web browser.
+
+Identify the reverse shell and meterpreter traffic.
+
+To finish off the attack, you uploaded a PHP reverse shell and started a meterpreter shell session. Answer the following questions:
+Can you identify traffic from the meterpreter session?
+	There is a file called shell.php that shouldn’t be there in the WebDav folder. The user_agent.original for the user ryan is “gvfs/1.42.2” which is used for uploading files.
+What kinds of alarms would you set to detect this behavior in the future?
+	Alert if suspicious file types are uploaded to the web server. Alert if any port is opened. 
+Identify at least one way to harden the vulnerable machine that would mitigate this attack.
+	All file uploads from outside the company’s internal network should be blocked. Executable files should also be blocked by default. 
